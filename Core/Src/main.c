@@ -177,9 +177,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM4) {
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
-		HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_1);
-		HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_1);
 		captured_value1 = TIM4->CCR1;
+		TIM4->DIER &= ~(1<<1);
 	}
 }
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -198,8 +197,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		else
 		{
-					HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
-					GPIOB->MODER |= (2<<12);
+					//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+					__HAL_TIM_ENABLE(&htim4);
+					TIM4->DIER |= (1<<1);
+					TIM4->SR &= ~(1<<1);
+					TIM4->CNT = 0;
+					//TIM4->DIER
 		}
 
 	}

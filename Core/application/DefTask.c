@@ -38,11 +38,9 @@ void StartDefaultTask(void *argument)
 	  		TIM1->CCR1 = 2250;
 			HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
 			HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-			GPIOB->MODER &= ~(3<<12);
-			__HAL_TIM_ENABLE(&htim4);
-			TIM4->CNT = 0;
-			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+//			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 	  		hardwareDelayFlag = 1;
+	  		TIM4->DIER &= ~(1<<1);
 
 
 //	  	    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);

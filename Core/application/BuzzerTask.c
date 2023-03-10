@@ -34,13 +34,14 @@ void Start_BuzzerTask(void *argument)
 	  int buzzer_toggle_cont = 0;
 	  int buzzer_toggle_delay = 0;
 	  int distance = 0;
+	  int constant = 29;
 
   /* Infinite loop */
   for(;;)
   {
 	  distance = *((int *) argument); //0.034cm->0.000001s
 
-	  distance = (distance/6.15)*0.0342;
+	  distance = (distance/6.15)*0.0342+constant;
 
 	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	  if((distance > 0)&&(distance <30))
